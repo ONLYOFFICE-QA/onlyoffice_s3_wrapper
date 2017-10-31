@@ -10,16 +10,7 @@ module OnlyofficeS3Wrapper
     attr_accessor :s3, :bucket, :download_folder, :access_key_id, :secret_access_key
 
     def initialize(bucket_name: 'nct-data-share', region: 'us-west-2')
-      @access_key_id = ENV['S3_KEY']
-      @secret_access_key = ENV['S3_PRIVATE_KEY']
-      if @access_key_id.nil? || @secret_access_key.nil?
-        begin
-          @access_key_id = File.read(Dir.home + '/.s3/key').delete("\n")
-          @secret_access_key = File.read(Dir.home + '/.s3/private_key').delete("\n")
-        rescue Errno::ENOENT
-          raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ directory. Please create files #{Dir.home}/.s3/key and #{Dir.home}/.s3/private_key"
-        end
-      end
+      read_keys
       Aws.config = { access_key_id: @access_key_id,
                      secret_access_key: @secret_access_key,
                      region: region }
@@ -29,16 +20,17 @@ module OnlyofficeS3Wrapper
     end
 
     def get_files_by_prefix(prefix = nil)
-      @bucket.objects(prefix: prefix).collect(&:key).reject { |file| is_folder?(file) }
+      @bucket.objects(prefix: prefix).collect(&:key).reject { |file| folder?(file) }
     end
 
     # param [String] prefix
-    # return [Array] of folder names with '/' in end and filenames with fullpath (started ad prefix)
+    # return [Array] of folder names with '/'
+    # in end and filenames with fullpath (started ad prefix)
     def get_elements_by_prefix(prefix = nil)
       @bucket.objects(prefix: prefix).collect(&:key)
     end
 
-    def is_folder?(str)
+    def folder?(str)
       str.end_with? '/'
     end
 
@@ -47,7 +39,8 @@ module OnlyofficeS3Wrapper
     end
 
     def download_file_by_name(file_name, download_folder = @download_folder)
-      OnlyofficeLoggerHelper.log("Download file with name #{file_name} to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log("Download file with name #{file_name} to "\
+                                      "folder #{download_folder}")
       OnlyofficeLoggerHelper.log('Try to find file:')
       object = get_object(file_name)
       download_object(object, download_folder)
@@ -55,18 +48,20 @@ module OnlyofficeS3Wrapper
 
     def download_object(object, download_folder = @download_folder)
       link = object.presigned_url(:get, expires_in: 3600)
-      OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} "\
+                                      "to folder #{download_folder}")
       File.open("#{download_folder}/#{File.basename(object.key)}", 'w') do |f|
         IO.copy_stream(open(link), f)
       end
-      OnlyofficeLoggerHelper.log("File with name #{object.key} successfully downloaded to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log("File with name #{object.key} successfully "\
+                                      "downloaded to folder #{download_folder}")
     rescue StandardError
       raise("File with name #{object.key} is not found un bucket #{@bucket.name}")
     end
 
     def upload_file(file_path, upload_folder)
       upload_folder.sub!('/', '') if upload_folder[0] == '/'
-      upload_folder.chop! if is_folder?(upload_folder)
+      upload_folder.chop! if folder?(upload_folder)
       @bucket.object("#{upload_folder}/#{File.basename(file_path)}").upload_file(file_path)
     end
 
@@ -89,6 +84,27 @@ module OnlyofficeS3Wrapper
     def delete_file(file_path)
       file_path.sub!('/', '') if file_path[0] == '/'
       get_object(file_path).delete
+    end
+
+    private
+
+    # Get S3 key and S3 private key
+    # @return [Array <String>] list of keys
+    def read_keys
+      return if read_env_keys
+      @access_key_id = File.read(Dir.home + '/.s3/key').strip
+      @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
+    rescue Errno::ENOENT
+      raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ directory."\
+                           "Please create files #{Dir.home}/.s3/key "\
+                           "and #{Dir.home}/.s3/private_key"
+    end
+
+    # Read keys from env variables
+    def read_env_keys
+      return false unless ENV['S3_KEY'] && ENV['S3_PRIVATE_KEY']
+      @access_key_id = ENV['S3_KEY']
+      @secret_access_key = ENV['S3_PRIVATE_KEY']
     end
   end
 end

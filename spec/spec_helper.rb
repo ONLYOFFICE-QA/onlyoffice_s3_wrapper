@@ -19,3 +19,8 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+def s3
+  @s3 ||= OnlyofficeS3Wrapper::AmazonS3Wrapper.new(bucket_name: 'nct-test-bucket',
+                                                   region: 'us-east-1')
+end

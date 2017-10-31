@@ -1,0 +1,27 @@
+require 'spec_helper'
+
+RSpec.describe OnlyofficeS3Wrapper do
+  it 'get_files_by_prefix' do
+    files = s3.get_files_by_prefix('docx')
+    expect(files).to include('docx/Book.docx')
+  end
+
+  it 'get_files_by_prefix with sub folder prefix' do
+    files = s3.get_files_by_prefix('docx/test_folder')
+    expect(files).to include('docx/test_folder/file_in_test_folder.rtf')
+  end
+
+  it 'get_files_by_prefix with empty prefix' do
+    files = s3.get_files_by_prefix(nil)
+    expect(files.size).to be >= 1
+  end
+
+  it 'get_files_by_prefix with not exist prefix' do
+    files = s3.get_files_by_prefix('notexistprefix')
+    expect(files.size).to eq(0)
+  end
+
+  after :each do
+    OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
+  end
+end
