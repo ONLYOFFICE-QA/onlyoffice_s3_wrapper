@@ -29,7 +29,7 @@ module OnlyofficeS3Wrapper
     end
 
     def get_files_by_prefix(prefix = nil)
-      @bucket.objects(prefix: prefix).collect(&:key).reject { |file| is_folder?(file) }
+      @bucket.objects(prefix: prefix).collect(&:key).reject { |file| folder?(file) }
     end
 
     # param [String] prefix
@@ -38,7 +38,7 @@ module OnlyofficeS3Wrapper
       @bucket.objects(prefix: prefix).collect(&:key)
     end
 
-    def is_folder?(str)
+    def folder?(str)
       str.end_with? '/'
     end
 
@@ -66,7 +66,7 @@ module OnlyofficeS3Wrapper
 
     def upload_file(file_path, upload_folder)
       upload_folder.sub!('/', '') if upload_folder[0] == '/'
-      upload_folder.chop! if is_folder?(upload_folder)
+      upload_folder.chop! if folder?(upload_folder)
       @bucket.object("#{upload_folder}/#{File.basename(file_path)}").upload_file(file_path)
     end
 
