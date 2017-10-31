@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeS3Wrapper do
-  let(:s3) { OnlyofficeS3Wrapper::AmazonS3Wrapper.new(bucket_name: 'nct-test-bucket', region: 'us-east-1') }
-
   it 'download_object' do
     object = s3.get_object('docx/Book.docx')
     s3.download_object(object)
-    expect(File.exist?("#{s3.download_folder}/#{object.key.split('/').last}")).to be_truthy
+    expect(File.exist?("#{s3.download_folder}/#{object.key.split('/').last}"))
+      .to be_truthy
   end
 
   it 'download_file_by_name' do

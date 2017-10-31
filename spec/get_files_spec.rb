@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeS3Wrapper do
-  let(:s3) { OnlyofficeS3Wrapper::AmazonS3Wrapper.new(bucket_name: 'nct-test-bucket', region: 'us-east-1') }
-
   it 'get_files_by_prefix' do
     files = s3.get_files_by_prefix('docx')
     expect(files).to include('docx/Book.docx')

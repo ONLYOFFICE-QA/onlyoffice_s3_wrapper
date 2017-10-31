@@ -24,7 +24,8 @@ module OnlyofficeS3Wrapper
     end
 
     # param [String] prefix
-    # return [Array] of folder names with '/' in end and filenames with fullpath (started ad prefix)
+    # return [Array] of folder names with '/'
+    # in end and filenames with fullpath (started ad prefix)
     def get_elements_by_prefix(prefix = nil)
       @bucket.objects(prefix: prefix).collect(&:key)
     end
@@ -38,7 +39,8 @@ module OnlyofficeS3Wrapper
     end
 
     def download_file_by_name(file_name, download_folder = @download_folder)
-      OnlyofficeLoggerHelper.log("Download file with name #{file_name} to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log("Download file with name #{file_name} to "\
+                                      "folder #{download_folder}")
       OnlyofficeLoggerHelper.log('Try to find file:')
       object = get_object(file_name)
       download_object(object, download_folder)
@@ -46,11 +48,13 @@ module OnlyofficeS3Wrapper
 
     def download_object(object, download_folder = @download_folder)
       link = object.presigned_url(:get, expires_in: 3600)
-      OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} "\
+                                      "to folder #{download_folder}")
       File.open("#{download_folder}/#{File.basename(object.key)}", 'w') do |f|
         IO.copy_stream(open(link), f)
       end
-      OnlyofficeLoggerHelper.log("File with name #{object.key} successfully downloaded to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log("File with name #{object.key} successfully "\
+                                      "downloaded to folder #{download_folder}")
     rescue StandardError
       raise("File with name #{object.key} is not found un bucket #{@bucket.name}")
     end
@@ -92,7 +96,8 @@ module OnlyofficeS3Wrapper
       @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
     rescue Errno::ENOENT
       raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ directory."\
-                           "Please create files #{Dir.home}/.s3/key and #{Dir.home}/.s3/private_key"
+                           "Please create files #{Dir.home}/.s3/key "\
+                           "and #{Dir.home}/.s3/private_key"
     end
 
     # Read keys from env variables

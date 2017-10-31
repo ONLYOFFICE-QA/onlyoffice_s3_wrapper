@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeS3Wrapper do
-  let(:s3) { OnlyofficeS3Wrapper::AmazonS3Wrapper.new(bucket_name: 'nct-test-bucket', region: 'us-east-1') }
   file_name = nil
 
   before :each do
@@ -18,7 +17,8 @@ RSpec.describe OnlyofficeS3Wrapper do
   end
 
   it 'make_public' do
-    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}", content: '')
+    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
+                                                              content: '')
     s3.upload_file("/tmp/#{file_name}", 'test')
     link, permissions = s3.make_public("test/#{file_name}")
     expect(link.is_a?(String)).to be_truthy

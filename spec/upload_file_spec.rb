@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeS3Wrapper do
-  let(:s3) { OnlyofficeS3Wrapper::AmazonS3Wrapper.new(bucket_name: 'nct-test-bucket', region: 'us-east-1') }
   file_name = nil
 
   before :each do
     file_name = "#{SecureRandom.uuid}.ext"
-    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}", content: '')
+    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
+                                                              content: '')
   end
 
   it 'upload_file' do
