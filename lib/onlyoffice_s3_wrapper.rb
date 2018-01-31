@@ -19,8 +19,8 @@ module OnlyofficeS3Wrapper
       @download_folder = Dir.mktmpdir('amazon-s3-downloads')
     end
 
-    def get_files_by_prefix(prefix = nil)
-      @bucket.objects(prefix: prefix).collect(&:key).reject { |file| folder?(file) }
+    def get_files_by_prefix(prefix = nil, field: :key)
+      @bucket.objects(prefix: prefix).collect(&field).reject { |file| folder?(file) }
     end
 
     # param [String] prefix

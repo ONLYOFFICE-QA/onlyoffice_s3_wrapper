@@ -21,6 +21,11 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(files.size).to eq(0)
   end
 
+  it 'get_files_by_prefix with collect not name' do
+    files = s3.get_files_by_prefix('docx/test_folder', field: :public_url)
+    expect(files.first).to start_with('http')
+  end
+
   after :each do
     OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
