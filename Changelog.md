@@ -1,6 +1,8 @@
 # Change log
 
 ## master (unreleased)
+
+## 0.1.1 (2018-02-01)
 * Ability to get any field in `get_files_by_prefix`
 
 ## 0.1.0 (2017-10-31)
