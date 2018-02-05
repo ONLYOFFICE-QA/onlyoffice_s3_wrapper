@@ -39,11 +39,10 @@ module OnlyofficeS3Wrapper
     end
 
     def download_file_by_name(file_name, download_folder = @download_folder)
-      OnlyofficeLoggerHelper.log("Download file with name #{file_name} to "\
-                                      "folder #{download_folder}")
-      OnlyofficeLoggerHelper.log('Try to find file:')
       object = get_object(file_name)
       download_object(object, download_folder)
+      OnlyofficeLoggerHelper.log("Downloaded file with name #{file_name} to "\
+                                      "folder #{download_folder}")
     end
 
     def download_object(object, download_folder = @download_folder)
