@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = ['shockwavenn@gmail.com', 'flamine@gmail.com']
   s.files = `git ls-files lib LICENSE.txt README.md`.split($RS)
   s.homepage = 'https://github.com/onlyoffice-testing-robot/onlyoffice_s3_wrapper'
-  s.add_runtime_dependency('aws-sdk', '~> 2.0')
+  s.add_runtime_dependency('aws-sdk', '>= 2', '< 4')
   s.add_runtime_dependency('onlyoffice_file_helper', '~> 0.1')
   s.license = 'AGPL-3.0'
 end
