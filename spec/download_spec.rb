@@ -13,6 +13,11 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(File.exist?("#{s3.download_folder}/Book.docx")).to be_truthy
   end
 
+  it 'download_object for nonexitsing name cause exception' do
+    fake_name = 'docx/fake-name.fakeext'
+    expect { s3.download_file_by_name(fake_name)}.to raise_error(/not found/)
+  end
+
   after :each do
     OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
