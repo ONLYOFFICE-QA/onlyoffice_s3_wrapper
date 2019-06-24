@@ -1,4 +1,6 @@
-$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require 'onlyoffice_s3_wrapper/version'
 Gem::Specification.new do |s|
   s.name = 'onlyoffice_s3_wrapper'

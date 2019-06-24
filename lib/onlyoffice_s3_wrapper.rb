@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aws-sdk'
 require 'open-uri'
 require 'securerandom'
@@ -50,7 +52,7 @@ module OnlyofficeS3Wrapper
       OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} "\
                                       "to folder #{download_folder}")
       File.open("#{download_folder}/#{File.basename(object.key)}", 'w') do |f|
-        IO.copy_stream(open(link), f)
+        IO.copy_stream(URI.parse(link).open, f)
       end
       OnlyofficeLoggerHelper.log("File with name #{object.key} successfully "\
                                       "downloaded to folder #{download_folder}")
@@ -59,8 +61,8 @@ module OnlyofficeS3Wrapper
     end
 
     def upload_file(file_path, upload_folder)
-      upload_folder.sub!('/', '') if upload_folder[0] == '/'
-      upload_folder.chop! if folder?(upload_folder)
+      upload_folder = upload_folder.sub('/', '') if upload_folder[0] == '/'
+      upload_folder = upload_folder.chop if folder?(upload_folder)
       @bucket.object("#{upload_folder}/#{File.basename(file_path)}").upload_file(file_path)
     end
 
@@ -81,7 +83,7 @@ module OnlyofficeS3Wrapper
     end
 
     def delete_file(file_path)
-      file_path.sub!('/', '') if file_path[0] == '/'
+      file_path = file_path.sub('/', '') if file_path[0] == '/'
       get_object(file_path).delete
     end
 
@@ -91,6 +93,7 @@ module OnlyofficeS3Wrapper
     # @return [Array <String>] list of keys
     def read_keys
       return if read_env_keys
+
       @access_key_id = File.read(Dir.home + '/.s3/key').strip
       @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
     rescue Errno::ENOENT
@@ -102,6 +105,7 @@ module OnlyofficeS3Wrapper
     # Read keys from env variables
     def read_env_keys
       return false unless ENV['S3_KEY'] && ENV['S3_PRIVATE_KEY']
+
       @access_key_id = ENV['S3_KEY']
       @secret_access_key = ENV['S3_PRIVATE_KEY']
     end
