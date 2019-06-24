@@ -16,6 +16,11 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(object.key).to eq('docx/Book.docx')
   end
 
+  it 'get_permission_by_link' do
+    object = s3.get_permission_by_link('docx/Book.docx')
+    expect(object).to be_a(Aws::S3::ObjectAcl)
+  end
+
   it 'make_public' do
     OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
                                                               content: '')
