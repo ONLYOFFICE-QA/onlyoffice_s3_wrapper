@@ -7,6 +7,7 @@ end
 
 require 'bundler/setup'
 require 'onlyoffice_s3_wrapper'
+require 'open-uri'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
