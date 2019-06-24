@@ -52,7 +52,7 @@ module OnlyofficeS3Wrapper
       OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} "\
                                       "to folder #{download_folder}")
       File.open("#{download_folder}/#{File.basename(object.key)}", 'w') do |f|
-        IO.copy_stream(open(link), f)
+        IO.copy_stream(URI.parse(link).open, f)
       end
       OnlyofficeLoggerHelper.log("File with name #{object.key} successfully "\
                                       "downloaded to folder #{download_folder}")
@@ -61,8 +61,8 @@ module OnlyofficeS3Wrapper
     end
 
     def upload_file(file_path, upload_folder)
-      upload_folder.sub!('/', '') if upload_folder[0] == '/'
-      upload_folder.chop! if folder?(upload_folder)
+      upload_folder = upload_folder.sub('/', '') if upload_folder[0] == '/'
+      upload_folder = upload_folder.chop if folder?(upload_folder)
       @bucket.object("#{upload_folder}/#{File.basename(file_path)}").upload_file(file_path)
     end
 
