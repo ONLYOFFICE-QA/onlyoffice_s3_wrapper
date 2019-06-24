@@ -91,6 +91,7 @@ module OnlyofficeS3Wrapper
     # @return [Array <String>] list of keys
     def read_keys
       return if read_env_keys
+
       @access_key_id = File.read(Dir.home + '/.s3/key').strip
       @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
     rescue Errno::ENOENT
@@ -102,6 +103,7 @@ module OnlyofficeS3Wrapper
     # Read keys from env variables
     def read_env_keys
       return false unless ENV['S3_KEY'] && ENV['S3_PRIVATE_KEY']
+
       @access_key_id = ENV['S3_KEY']
       @secret_access_key = ENV['S3_PRIVATE_KEY']
     end
