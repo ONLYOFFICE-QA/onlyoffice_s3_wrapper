@@ -27,8 +27,8 @@ RSpec.describe OnlyofficeS3Wrapper do
   end
 
   it 'upload_file_and_make_public' do
-    link = s3.upload_file_and_make_public("/tmp/#{file_name}", 'test/')
-    expect(URI.parse(link).open).not_to be_empty
+    link = s3.upload_file_and_make_public("/tmp/#{file_name}", 'test')
+    expect(URI.parse(link).open.read).not_to be_empty
   end
 
   after :each do
