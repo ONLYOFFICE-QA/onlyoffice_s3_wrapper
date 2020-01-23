@@ -4,11 +4,13 @@ require 'aws-sdk-s3'
 require 'open-uri'
 require 'securerandom'
 require 'onlyoffice_file_helper'
+require 'onlyoffice_s3_wrapper/path_helper'
 require 'onlyoffice_s3_wrapper/version'
 
 module OnlyofficeS3Wrapper
   # Class for working with amazon s3
   class AmazonS3Wrapper
+    include PathHelper
     attr_accessor :s3, :bucket, :download_folder, :access_key_id, :secret_access_key
 
     def initialize(bucket_name: 'nct-data-share', region: 'us-west-2')
@@ -61,9 +63,9 @@ module OnlyofficeS3Wrapper
     end
 
     def upload_file(file_path, upload_folder)
-      upload_folder = upload_folder.sub('/', '') if upload_folder[0] == '/'
-      upload_folder = upload_folder.chop if folder?(upload_folder)
-      @bucket.object("#{upload_folder}/#{File.basename(file_path)}").upload_file(file_path)
+      path = bucket_file_path(File.basename(file_path),
+                              upload_folder)
+      @bucket.object(path).upload_file(file_path)
     end
 
     def make_public(file_path)
@@ -76,10 +78,10 @@ module OnlyofficeS3Wrapper
       @bucket.object(file_path).acl
     end
 
-    def upload_file_and_make_public(file_path, upload_folder)
+    def upload_file_and_make_public(file_path, upload_folder = nil)
       upload_file(file_path, upload_folder)
-      make_public("#{upload_folder}/#{File.basename(file_path)}")
-      @bucket.object("#{upload_folder}/#{File.basename(file_path)}").public_url
+      make_public(bucket_file_path(File.basename(file_path), upload_folder))
+      @bucket.object(bucket_file_path(File.basename(file_path), upload_folder)).public_url
     end
 
     def delete_file(file_path)
