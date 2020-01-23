@@ -31,8 +31,4 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(link).to be_a(String)
     expect(permissions).to eq('READ')
   end
-
-  after do
-    OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
-  end
 end

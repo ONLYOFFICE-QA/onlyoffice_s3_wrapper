@@ -21,8 +21,4 @@ RSpec.describe OnlyofficeS3Wrapper do
     s3.delete_file("/test/#{file_name}")
     expect(s3.get_files_by_prefix('test')).not_to include("test/#{file_name}")
   end
-
-  after do
-    OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
-  end
 end
