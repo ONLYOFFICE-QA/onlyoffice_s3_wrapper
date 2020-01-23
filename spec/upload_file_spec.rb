@@ -3,10 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeS3Wrapper do
-  file_name = nil
+  let(:file_name) { "#{SecureRandom.uuid}.ext" }
 
   before do
-    file_name = "#{SecureRandom.uuid}.ext"
     OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
                                                               content: 'TestContent')
   end
