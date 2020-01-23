@@ -31,6 +31,11 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(URI.parse(link).open.read).not_to be_empty
   end
 
+  it 'upload_file_and_make_public can upload file to root' do
+    s3.upload_file_and_make_public("/tmp/#{file_name}")
+    expect(s3.get_files_by_prefix).to include(file_name)
+  end
+
   after :each do
     OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
