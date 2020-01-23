@@ -5,8 +5,8 @@ require 'spec_helper'
 RSpec.describe OnlyofficeS3Wrapper do
   let(:make_public_result) do
     file_name = "#{SecureRandom.uuid}.ext"
-    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
-                                                              content: '')
+    FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
+                                        content: '')
     s3.upload_file("/tmp/#{file_name}", 'test')
     s3.make_public("test/#{file_name}")
   end

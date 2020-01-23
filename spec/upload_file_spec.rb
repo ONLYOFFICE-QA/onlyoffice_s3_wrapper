@@ -6,8 +6,8 @@ RSpec.describe OnlyofficeS3Wrapper do
   let(:file_name) { "#{SecureRandom.uuid}.ext" }
 
   before do
-    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
-                                                              content: 'TestContent')
+    FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
+                                        content: 'TestContent')
   end
 
   it 'upload_file' do

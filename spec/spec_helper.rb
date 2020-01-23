@@ -13,7 +13,7 @@ require 'open-uri'
 
 shared_context 'with cleanup download folder' do
   after do
-    OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
+    FileHelper.delete_directory(s3.download_folder)
   end
 end
 
@@ -28,9 +28,11 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
   config.include_context('with cleanup download folder')
+  include OnlyofficeFileHelper
+  include OnlyofficeS3Wrapper
 end
 
 def s3
-  @s3 ||= OnlyofficeS3Wrapper::AmazonS3Wrapper.new(bucket_name: 'onlyoffice-s3-wrapper-rspec',
-                                                   region: 'us-east-1')
+  @s3 ||= AmazonS3Wrapper.new(bucket_name: 'onlyoffice-s3-wrapper-rspec',
+                              region: 'us-east-1')
 end
