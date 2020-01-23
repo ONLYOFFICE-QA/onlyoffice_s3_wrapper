@@ -28,7 +28,7 @@ RSpec.describe OnlyofficeS3Wrapper do
                                                               content: '')
     s3.upload_file("/tmp/#{file_name}", 'test')
     link, permissions = s3.make_public("test/#{file_name}")
-    expect(link.is_a?(String)).to be_truthy
+    expect(link).to be_a(String)
     expect(permissions).to eq('READ')
   end
 
