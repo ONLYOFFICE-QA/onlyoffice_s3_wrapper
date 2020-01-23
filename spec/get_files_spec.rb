@@ -28,7 +28,7 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(files.first).to start_with('http')
   end
 
-  after :each do
+  after do
     OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
 end

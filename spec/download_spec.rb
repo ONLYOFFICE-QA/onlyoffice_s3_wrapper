@@ -20,7 +20,7 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect { s3.download_file_by_name(fake_name) }.to raise_error(/not found/)
   end
 
-  after :each do
+  after do
     OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
 end

@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe OnlyofficeS3Wrapper do
   file_name = nil
 
-  before :each do
+  before do
     file_name = "#{SecureRandom.uuid}.ext"
   end
 
@@ -32,7 +32,7 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(permissions).to eq('READ')
   end
 
-  after :each do
+  after do
     OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
 end
