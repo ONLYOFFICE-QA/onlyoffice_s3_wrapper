@@ -23,12 +23,20 @@ RSpec.describe OnlyofficeS3Wrapper do
     expect(object).to be_a(Aws::S3::ObjectAcl)
   end
 
-  it 'make_public' do
-    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
-                                                              content: '')
-    s3.upload_file("/tmp/#{file_name}", 'test')
-    link, permissions = s3.make_public("test/#{file_name}")
-    expect(link).to be_a(String)
-    expect(permissions).to eq('READ')
+  describe 'make_public' do
+    let(:make_public_result) do
+      OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
+                                                                content: '')
+      s3.upload_file("/tmp/#{file_name}", 'test')
+      s3.make_public("test/#{file_name}")
+    end
+
+    it 'make_public result a link' do
+      expect(make_public_result[0]).to be_a(String)
+    end
+
+    it 'make_public permissions is READ' do
+      expect(make_public_result[1]).to eq('READ')
+    end
   end
 end
