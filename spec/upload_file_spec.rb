@@ -33,7 +33,7 @@ RSpec.describe OnlyofficeS3Wrapper do
 
   it 'upload_file_and_make_public can upload file to root' do
     s3.upload_file_and_make_public("/tmp/#{file_name}")
-    expect(s3.get_files_by_prefix).to include('file_name')
+    expect(s3.get_files_by_prefix).to include(file_name)
   end
 
   after :each do
