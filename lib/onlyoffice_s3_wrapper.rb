@@ -11,7 +11,11 @@ module OnlyofficeS3Wrapper
   # Class for working with amazon s3
   class AmazonS3Wrapper
     include PathHelper
-    attr_accessor :s3, :bucket, :download_folder, :access_key_id, :secret_access_key
+    attr_accessor :s3, :bucket, :download_folder
+    # [String] Amazon key
+    attr_writer :access_key_id
+    # [String] Amazon secret key
+    attr_writer :secret_access_key
 
     def initialize(bucket_name: 'nct-data-share', region: 'us-west-2')
       read_keys
@@ -24,7 +28,9 @@ module OnlyofficeS3Wrapper
     end
 
     def get_files_by_prefix(prefix = nil, field: :key)
-      @bucket.objects(prefix: prefix).collect(&field).reject { |file| folder?(file) }
+      @bucket.objects(prefix: prefix)
+             .collect(&field)
+             .reject { |file| folder?(file) }
     end
 
     # param [String] prefix
@@ -51,15 +57,15 @@ module OnlyofficeS3Wrapper
 
     def download_object(object, download_folder = @download_folder)
       link = object.presigned_url(:get, expires_in: 3600)
-      OnlyofficeLoggerHelper.log("Try to download object with name #{object.key} "\
-                                      "to folder #{download_folder}")
+      OnlyofficeLoggerHelper.log('Try to download object with name '\
+                                      "#{object.key} to #{download_folder}")
       File.open("#{download_folder}/#{File.basename(object.key)}", 'w') do |f|
         IO.copy_stream(URI.parse(link).open, f)
       end
       OnlyofficeLoggerHelper.log("File with name #{object.key} successfully "\
                                       "downloaded to folder #{download_folder}")
     rescue StandardError
-      raise("File with name #{object.key} is not found un bucket #{@bucket.name}")
+      raise("File #{object.key} is not found un bucket #{@bucket.name}")
     end
 
     def upload_file(file_path, upload_folder)
@@ -81,7 +87,8 @@ module OnlyofficeS3Wrapper
     def upload_file_and_make_public(file_path, upload_folder = nil)
       upload_file(file_path, upload_folder)
       make_public(bucket_file_path(File.basename(file_path), upload_folder))
-      @bucket.object(bucket_file_path(File.basename(file_path), upload_folder)).public_url
+      @bucket.object(bucket_file_path(File.basename(file_path),
+                                      upload_folder)).public_url
     end
 
     def delete_file(file_path)
@@ -99,7 +106,7 @@ module OnlyofficeS3Wrapper
       @access_key_id = File.read(Dir.home + '/.s3/key').strip
       @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
     rescue Errno::ENOENT
-      raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ directory."\
+      raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ "\
                            "Please create files #{Dir.home}/.s3/key "\
                            "and #{Dir.home}/.s3/private_key"
     end
