@@ -3,12 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe OnlyofficeS3Wrapper do
-  file_name = nil
+  let(:file_name) { "#{SecureRandom.uuid}.ext" }
 
-  before :each do
-    file_name = "#{SecureRandom.uuid}.ext"
-    OnlyofficeFileHelper::FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
-                                                              content: 'TestContent')
+  before do
+    FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
+                                        content: 'TestContent')
   end
 
   it 'upload_file' do
@@ -34,9 +33,5 @@ RSpec.describe OnlyofficeS3Wrapper do
   it 'upload_file_and_make_public can upload file to root' do
     s3.upload_file_and_make_public("/tmp/#{file_name}")
     expect(s3.get_files_by_prefix).to include(file_name)
-  end
-
-  after :each do
-    OnlyofficeFileHelper::FileHelper.delete_directory(s3.download_folder)
   end
 end
