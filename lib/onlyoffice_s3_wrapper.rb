@@ -48,22 +48,23 @@ module OnlyofficeS3Wrapper
       @bucket.object(obj_name)
     end
 
+    # @param file_name [String] path to file in S3 bucket
+    # @param download_folder [String] path to save file
+    # @return [String] full path to file
     def download_file_by_name(file_name, download_folder = @download_folder)
       object = get_object(file_name)
-      download_object(object, download_folder)
-      OnlyofficeLoggerHelper.log("Downloaded file with name #{file_name} to "\
-                                      "folder #{download_folder}")
+      full_name = download_object(object, download_folder)
+      OnlyofficeLoggerHelper.log("Downloaded file: #{full_name}")
+      full_name
     end
 
     def download_object(object, download_folder = @download_folder)
+      file_name = "#{download_folder}/#{File.basename(object.key)}"
       link = object.presigned_url(:get, expires_in: 3600)
-      OnlyofficeLoggerHelper.log('Try to download object with name '\
-                                      "#{object.key} to #{download_folder}")
-      File.open("#{download_folder}/#{File.basename(object.key)}", 'w') do |f|
+      File.open(file_name, 'w') do |f|
         IO.copy_stream(URI.parse(link).open, f)
       end
-      OnlyofficeLoggerHelper.log("File with name #{object.key} successfully "\
-                                      "downloaded to folder #{download_folder}")
+      file_name
     rescue StandardError
       raise("File #{object.key} is not found un bucket #{@bucket.name}")
     end
