@@ -5,6 +5,7 @@
 ### New Features
 
 * `download_file_by_name` return file path
+* `download_object` raise more detailed error
 
 ## 0.1.2 (2020-01-24)
 

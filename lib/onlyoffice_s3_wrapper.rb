@@ -65,8 +65,8 @@ module OnlyofficeS3Wrapper
         IO.copy_stream(URI.parse(link).open, f)
       end
       file_name
-    rescue StandardError
-      raise("File #{object.key} is not found un bucket #{@bucket.name}")
+    rescue StandardError => e
+      raise("File #{file_name} download failed with: #{e}")
     end
 
     def upload_file(file_path, upload_folder)
