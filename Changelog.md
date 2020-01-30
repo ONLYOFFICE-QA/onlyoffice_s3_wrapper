@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### New Features
+
+* `download_file_by_name` return file path
+
 ## 0.1.2 (2020-01-24)
 
 * Reformat log while downloading files
