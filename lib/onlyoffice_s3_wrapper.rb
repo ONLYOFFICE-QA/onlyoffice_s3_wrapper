@@ -49,13 +49,21 @@ module OnlyofficeS3Wrapper
     end
 
     # @param file_name [String] path to file in S3 bucket
-    # @param download_folder [String] path to save file
+    # @param download_location [String] path to save file.
+    #   Can be full path to file, or just the directory to save
     # @return [String] full path to file
-    def download_file_by_name(file_name, download_folder = @download_folder)
+    def download_file_by_name(file_name, download_location = nil)
       object = get_object(file_name)
-      full_name = download_object(object, download_folder)
-      OnlyofficeLoggerHelper.log("Downloaded file: #{full_name}")
-      full_name
+      temp_location = download_object(object, @download_folder)
+      OnlyofficeLoggerHelper.log("Temp downloaded file: #{temp_location}")
+
+      return temp_location unless download_location
+
+      if File.directory?(download_location)
+        download_location = "#{download_location}/#{File.basename(file_name)}"
+      end
+      FileUtils.mv(temp_location, download_location)
+      download_location
     end
 
     def download_object(object, download_folder = @download_folder)
