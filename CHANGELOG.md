@@ -16,6 +16,7 @@
 * Drop support of rubies older than 2.5
 * Move `gem` homepage to new organization
 * Cleanup `gemspec` file
+* Fully redone README file
 
 ## 0.1.2 (2020-01-24)
 
