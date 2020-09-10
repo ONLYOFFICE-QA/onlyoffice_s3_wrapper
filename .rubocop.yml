@@ -1,14 +1,9 @@
 require:
     - rubocop-performance
+    - rubocop-rake
     - rubocop-rspec
-inherit_from:
-    - .rubocop_todo.yml
 
-Style/HashEachMethods:
-    Enabled: true
+inherit_from: .rubocop_todo.yml
 
-Style/HashTransformKeys:
-    Enabled: true
-
-Style/HashTransformValues:
-    Enabled: true
+AllCops:
+    NewCops: enable
