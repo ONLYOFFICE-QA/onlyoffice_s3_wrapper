@@ -59,9 +59,7 @@ module OnlyofficeS3Wrapper
 
       return temp_location unless download_location
 
-      if File.directory?(download_location)
-        download_location = "#{download_location}/#{File.basename(file_name)}"
-      end
+      download_location = "#{download_location}/#{File.basename(file_name)}" if File.directory?(download_location)
       FileUtils.mv(temp_location, download_location)
       download_location
     end
