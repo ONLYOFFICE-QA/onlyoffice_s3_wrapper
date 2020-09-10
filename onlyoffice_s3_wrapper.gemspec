@@ -1,18 +1,26 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.expand_path('lib', __dir__)
-require 'onlyoffice_s3_wrapper/version'
+require_relative 'lib/onlyoffice_s3_wrapper/name'
+require_relative 'lib/onlyoffice_s3_wrapper/version'
+
 Gem::Specification.new do |s|
-  s.name = 'onlyoffice_s3_wrapper'
-  s.version = OnlyofficeS3Wrapper:: VERSION
+  s.name = OnlyofficeS3Wrapper::NAME
+  s.version = OnlyofficeS3Wrapper::VERSION
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.5'
   s.authors = ['ONLYOFFICE', 'Pavel Lobashov', 'Dmitry Rotaty']
   s.summary = 'ONLYOFFICE Helper Gem for S3'
   s.description = 'ONLYOFFICE Helper Gem for S3. Used in QA'
+  s.homepage = "https://github.com/ONLYOFFICE-QA/#{s.name}"
+  s.metadata = {
+    'bug_tracker_uri' => "#{s.homepage}/issues",
+    'changelog_uri' => "#{s.homepage}/blob/master/CHANGELOG.md",
+    'documentation_uri' => "https://www.rubydoc.info/gems/#{s.name}",
+    'homepage_uri' => s.homepage,
+    'source_code_uri' => s.homepage
+  }
   s.email = ['shockwavenn@gmail.com', 'flamine@gmail.com']
-  s.files = `git ls-files lib LICENSE.txt README.md`.split($RS)
-  s.homepage = 'https://github.com/ONLYOFFICE-QA/onlyoffice_s3_wrapper'
+  s.files = Dir['lib/**/*']
   s.add_runtime_dependency('aws-sdk-s3', '~> 1')
   s.add_runtime_dependency('onlyoffice_file_helper', '~> 0.1')
   s.license = 'AGPL-3.0'
