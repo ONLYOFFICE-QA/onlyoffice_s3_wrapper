@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'simplecov'
 SimpleCov.start
 
-require 'bundler/setup'
 require 'onlyoffice_s3_wrapper'
 require 'open-uri'
 
