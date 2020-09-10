@@ -13,6 +13,7 @@
 
 * Use GitHub Actions instead of TravisCI
 * Drop support of rubies older than 2.5
+* Move `gem` homepage to new organization
 
 ## 0.1.2 (2020-01-24)
 
