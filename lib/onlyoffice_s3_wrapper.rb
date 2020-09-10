@@ -59,9 +59,7 @@ module OnlyofficeS3Wrapper
 
       return temp_location unless download_location
 
-      if File.directory?(download_location)
-        download_location = "#{download_location}/#{File.basename(file_name)}"
-      end
+      download_location = "#{download_location}/#{File.basename(file_name)}" if File.directory?(download_location)
       FileUtils.mv(temp_location, download_location)
       download_location
     end
@@ -112,8 +110,8 @@ module OnlyofficeS3Wrapper
     def read_keys
       return if read_env_keys
 
-      @access_key_id = File.read(Dir.home + '/.s3/key').strip
-      @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
+      @access_key_id = File.read("#{Dir.home}/.s3/key").strip
+      @secret_access_key = File.read("#{Dir.home}/.s3/private_key").strip
     rescue Errno::ENOENT
       raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ "\
                            "Please create files #{Dir.home}/.s3/key "\

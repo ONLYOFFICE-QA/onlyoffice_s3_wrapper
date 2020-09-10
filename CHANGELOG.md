@@ -9,6 +9,7 @@
   location to `download_file_by_name`
 * `download_object` raise more detailed error
 * Add `markdownlint`-check task in CI
+* Add `rubocop` check to CI
 
 ### Changes
 
@@ -17,6 +18,7 @@
 * Move `gem` homepage to new organization
 * Cleanup `gemspec` file
 * Fully redone README file
+* Freeze specific version of dependencies
 
 ## 0.1.2 (2020-01-24)
 
