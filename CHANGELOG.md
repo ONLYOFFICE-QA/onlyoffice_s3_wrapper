@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.2.0 (2020-09-10)
+
 ### New Features
 
 * `download_file_by_name` return file path
