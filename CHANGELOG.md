@@ -14,6 +14,8 @@
 * Add all missing documentation
 * Add tests for 100% coverage
 * Add `dependabot` config
+* Add `rake` task to release gem on
+  both `rubygems` and `GitHub Packages`
 
 ### Fixes
 
