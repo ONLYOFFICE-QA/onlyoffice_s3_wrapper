@@ -8,6 +8,7 @@
 * Add support to specify file download 
   location to `download_file_by_name`
 * `download_object` raise more detailed error
+* Add `markdownlint`-check task in CI
 
 ### Changes
 
