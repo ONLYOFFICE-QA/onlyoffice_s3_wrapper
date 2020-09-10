@@ -12,6 +12,11 @@
 * Add `rubocop` check to CI
 * Add `yard` task that gem fully documented
 * Add all missing documentation
+* Add tests for 100% coverage
+
+### Fixes
+
+* Fix coverage report on non-CI
 
 ### Changes
 
@@ -21,6 +26,7 @@
 * Cleanup `gemspec` file
 * Fully redone README file
 * Freeze specific version of dependencies
+* Drop `codecov` support
 
 ## 0.1.2 (2020-01-24)
 
