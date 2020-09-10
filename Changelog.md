@@ -9,6 +9,11 @@
   location to `download_file_by_name`
 * `download_object` raise more detailed error
 
+### Changes
+
+* Use GitHub Actions instead of TravisCI
+* Drop support of rubies older than 2.5
+
 ## 0.1.2 (2020-01-24)
 
 * Reformat log while downloading files
