@@ -13,6 +13,10 @@
 * Add `yard` task that gem fully documented
 * Add all missing documentation
 
+### Fixes
+
+* Fix coverage report on non-CI
+
 ### Changes
 
 * Use GitHub Actions instead of TravisCI
