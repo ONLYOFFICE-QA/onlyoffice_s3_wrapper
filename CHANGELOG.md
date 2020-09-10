@@ -13,6 +13,7 @@
 * Add `yard` task that gem fully documented
 * Add all missing documentation
 * Add tests for 100% coverage
+* Add `dependabot` config
 
 ### Fixes
 
