@@ -139,7 +139,7 @@ module OnlyofficeS3Wrapper
     # @param force_file_read [True, False] force key read from file
     # @return [Array <String>] list of keys
     def read_keys(force_file_read: false)
-      return if read_env_keys || force_file_read
+      return if read_env_keys && !force_file_read
 
       @access_key_id = File.read("#{Dir.home}/.s3/key").strip
       @secret_access_key = File.read("#{Dir.home}/.s3/private_key").strip
