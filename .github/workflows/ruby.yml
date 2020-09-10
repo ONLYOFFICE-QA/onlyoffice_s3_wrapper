@@ -1,0 +1,27 @@
+name: Ruby
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allow-failures }}
+    strategy:
+      matrix:
+        ruby: [2.5, 2.6, 2.7]
+        allow-failures: [false]
+        include:
+          - ruby: head
+            allow-failures: true
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby ${{ matrix.ruby }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Build and test with Rake
+      env:
+        S3_KEY: ${{ secrets.S3_KEY }}
+        S3_PRIVATE_KEY: ${{ secrets.S3_PRIVATE_KEY }}
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rake
