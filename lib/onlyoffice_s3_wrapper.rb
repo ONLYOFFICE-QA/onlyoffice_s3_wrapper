@@ -112,8 +112,8 @@ module OnlyofficeS3Wrapper
     def read_keys
       return if read_env_keys
 
-      @access_key_id = File.read(Dir.home + '/.s3/key').strip
-      @secret_access_key = File.read(Dir.home + '/.s3/private_key').strip
+      @access_key_id = File.read("#{Dir.home}/.s3/key").strip
+      @secret_access_key = File.read("#{Dir.home}/.s3/private_key").strip
     rescue Errno::ENOENT
       raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ "\
                            "Please create files #{Dir.home}/.s3/key "\

@@ -30,9 +30,3 @@ RSpec/FilePath:
 Style/IfUnlessModifier:
   Exclude:
     - 'lib/onlyoffice_s3_wrapper.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/StringConcatenation:
-  Exclude:
-    - 'lib/onlyoffice_s3_wrapper.rb'
