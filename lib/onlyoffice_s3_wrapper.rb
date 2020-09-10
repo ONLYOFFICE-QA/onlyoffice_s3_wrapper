@@ -135,12 +135,11 @@ module OnlyofficeS3Wrapper
       get_object(file_path).delete
     end
 
-    private
-
     # Get S3 key and S3 private key
+    # @param force_file_read [True, False] force key read from file
     # @return [Array <String>] list of keys
-    def read_keys
-      return if read_env_keys
+    def read_keys(force_file_read: false)
+      return if read_env_keys || force_file_read
 
       @access_key_id = File.read("#{Dir.home}/.s3/key").strip
       @secret_access_key = File.read("#{Dir.home}/.s3/private_key").strip
@@ -149,6 +148,8 @@ module OnlyofficeS3Wrapper
                            "Please create files #{Dir.home}/.s3/key "\
                            "and #{Dir.home}/.s3/private_key"
     end
+
+    private
 
     # Read keys from env variables
     def read_env_keys
