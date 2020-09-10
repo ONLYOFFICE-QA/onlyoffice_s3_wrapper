@@ -32,6 +32,7 @@ RSpec.configure do |config|
   include OnlyofficeS3Wrapper
 end
 
+# @return [AmazonS3Wrapper] test bucket
 def s3
   @s3 ||= AmazonS3Wrapper.new(bucket_name: 'onlyoffice-s3-wrapper-rspec',
                               region: 'us-east-1')
