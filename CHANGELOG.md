@@ -5,9 +5,10 @@
 ### New Features
 
 * `download_file_by_name` return file path
-* Add support to specify file download 
+* Add support to specify file download
   location to `download_file_by_name`
 * `download_object` raise more detailed error
+* Add `markdownlint`-check task in CI
 
 ### Changes
 
@@ -15,6 +16,7 @@
 * Drop support of rubies older than 2.5
 * Move `gem` homepage to new organization
 * Cleanup `gemspec` file
+* Fully redone README file
 
 ## 0.1.2 (2020-01-24)
 
