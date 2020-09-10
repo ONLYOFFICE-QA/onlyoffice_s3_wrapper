@@ -7,6 +7,7 @@ require 'onlyoffice_file_helper'
 require 'onlyoffice_s3_wrapper/path_helper'
 require 'onlyoffice_s3_wrapper/version'
 
+# Namespace for Gem
 module OnlyofficeS3Wrapper
   # Class for working with amazon s3
   class AmazonS3Wrapper
@@ -27,6 +28,10 @@ module OnlyofficeS3Wrapper
       @download_folder = Dir.mktmpdir('amazon-s3-downloads')
     end
 
+    # Get files by prefix
+    # @param prefix [String] prefix to filter
+    # @param field [Symbol] field to get
+    # @return [Array<Object>] result set
     def get_files_by_prefix(prefix = nil, field: :key)
       @bucket.objects(prefix: prefix)
              .collect(&field)
@@ -40,10 +45,16 @@ module OnlyofficeS3Wrapper
       @bucket.objects(prefix: prefix).collect(&:key)
     end
 
+    # Is string path to folder
+    # @param str [String] path
+    # @return [True, False]
     def folder?(str)
       str.end_with? '/'
     end
 
+    # Get object by name
+    # @param obj_name [String] name of object
+    # @return [Object]
     def get_object(obj_name)
       @bucket.object(obj_name)
     end
@@ -64,6 +75,10 @@ module OnlyofficeS3Wrapper
       download_location
     end
 
+    # Download object
+    # @param object [Object] to download
+    # @param download_folder [String] path to save
+    # @return [String] path to downloaded file
     def download_object(object, download_folder = @download_folder)
       file_name = "#{download_folder}/#{File.basename(object.key)}"
       link = object.presigned_url(:get, expires_in: 3600)
@@ -75,22 +90,36 @@ module OnlyofficeS3Wrapper
       raise("File #{file_name} download failed with: #{e}")
     end
 
+    # Upload file
+    # @param file_path [String] file to upload
+    # @param upload_folder [String] path to upload
+    # @return [nil]
     def upload_file(file_path, upload_folder)
       path = bucket_file_path(File.basename(file_path),
                               upload_folder)
       @bucket.object(path).upload_file(file_path)
     end
 
+    # Make file public
+    # @param file_path [String] file to make public
+    # @return [Array<String, String>] public url and permissions
     def make_public(file_path)
       @bucket.object(file_path).acl.put(acl: 'public-read')
       permission = @bucket.object(file_path).acl.grants.last.permission
       [@bucket.object(file_path).public_url.to_s, permission]
     end
 
+    # Get permissions for file
+    # @param file_path [String] path to file
+    # @return [Aws::S3::ObjectAcl] permissions
     def get_permission_by_link(file_path)
       @bucket.object(file_path).acl
     end
 
+    # Upload file/folder and make public
+    # @param file_path [String] file to upload
+    # @param upload_folder [True, False] is this a folder
+    # @return [String] public url
     def upload_file_and_make_public(file_path, upload_folder = nil)
       upload_file(file_path, upload_folder)
       make_public(bucket_file_path(File.basename(file_path), upload_folder))
@@ -98,6 +127,9 @@ module OnlyofficeS3Wrapper
                                       upload_folder)).public_url
     end
 
+    # Delete file by name
+    # @param file_path [String] name of file
+    # @return [nil]
     def delete_file(file_path)
       file_path = file_path.sub('/', '') if file_path[0] == '/'
       get_object(file_path).delete
