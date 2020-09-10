@@ -10,6 +10,7 @@
 * `download_object` raise more detailed error
 * Add `markdownlint`-check task in CI
 * Add `rubocop` check to CI
+* Add `yard` task that gem fully documented
 
 ### Changes
 
