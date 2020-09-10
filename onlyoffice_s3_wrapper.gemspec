@@ -21,9 +21,11 @@ Gem::Specification.new do |s|
   }
   s.email = ['shockwavenn@gmail.com', 'flamine@gmail.com']
   s.files = Dir['lib/**/*']
-  s.add_runtime_dependency('aws-sdk-s3', '~> 1')
-  s.add_runtime_dependency('onlyoffice_file_helper', '~> 0.1')
-  s.add_development_dependency('rake', '~> 13.0')
+  s.add_runtime_dependency('aws-sdk-s3', '1.79.1')
+  s.add_runtime_dependency('onlyoffice_file_helper', '0.3.0')
+  s.add_development_dependency('overcommit', '0.55.0')
+  s.add_development_dependency('rake', '13.0.1')
+  s.add_development_dependency('rspec', '3.9.0')
   s.add_development_dependency('rubocop', '0.90.0')
   s.add_development_dependency('rubocop-performance', '1.8.0')
   s.add_development_dependency('rubocop-rake', '0.5.1')
