@@ -136,27 +136,15 @@ module OnlyofficeS3Wrapper
     end
 
     # Get S3 key and S3 private key
-    # @param force_file_read [True, False] force key read from file
-    # @return [Array <String>] list of keys
-    def read_keys(force_file_read: false)
-      return if read_env_keys && !force_file_read
-
-      @access_key_id = File.read("#{Dir.home}/.s3/key").strip &&
-                       @secret_access_key = File.read("#{Dir.home}/.s3/private_key").strip
+    # @param key_location [String] Path to search for key files
+    # @return [nil]
+    def read_keys(key_location = "#{Dir.home}/.s3")
+      @access_key_id = File.read("#{key_location}/key").strip
+      @secret_access_key = File.read("#{key_location}/private_key").strip
     rescue Errno::ENOENT
-      raise Errno::ENOENT, "No key or private key found in #{Dir.home}/.s3/ "\
-                           "Please create files #{Dir.home}/.s3/key "\
-                           "and #{Dir.home}/.s3/private_key"
-    end
-
-    private
-
-    # Read keys from env variables
-    def read_env_keys
-      return false unless ENV['S3_KEY'] && ENV['S3_PRIVATE_KEY']
-
-      @access_key_id = ENV['S3_KEY']
-      @secret_access_key = ENV['S3_PRIVATE_KEY']
+      raise Errno::ENOENT, "No key or private key found in #{key_location} "\
+                           "Please create files #{key_location}/key "\
+                           "and #{key_location}/private_key"
     end
   end
 end
