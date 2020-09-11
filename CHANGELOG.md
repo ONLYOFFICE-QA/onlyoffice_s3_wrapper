@@ -11,6 +11,7 @@
 ### Fixes
 
 * Fix incorrect keys read from config files
+* Add `markdownlint` config file
 
 ## 0.2.0 (2020-09-10)
 
