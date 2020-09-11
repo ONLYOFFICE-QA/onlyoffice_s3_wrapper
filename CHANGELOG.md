@@ -2,6 +2,17 @@
 
 ## master (unreleased)
 
+## 0.3.0 (2020-09-11)
+
+### Changes
+
+* Remove support of reading keys from `ENV`
+
+### Fixes
+
+* Fix incorrect keys read from config files
+* Add `markdownlint` config file
+
 ## 0.2.0 (2020-09-10)
 
 ### New Features

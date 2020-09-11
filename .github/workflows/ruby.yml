@@ -17,10 +17,15 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-    - name: Build and test with Rake
+    - name: Initialize configuration
       env:
         S3_KEY: ${{ secrets.S3_KEY }}
         S3_PRIVATE_KEY: ${{ secrets.S3_PRIVATE_KEY }}
+      run: |
+        mkdir -pv ~/.s3
+        echo $S3_KEY > ~/.s3/key
+        echo $S3_PRIVATE_KEY > ~/.s3/private_key
+    - name: Build and test with Rake
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
