@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   }
   s.email = ['shockwavenn@gmail.com', 'flamine@gmail.com']
   s.files = Dir['lib/**/*']
-  s.add_runtime_dependency('aws-sdk-s3', '1.81.0')
+  s.add_runtime_dependency('aws-sdk-s3', '1.81.1')
   s.add_runtime_dependency('onlyoffice_file_helper', '0.3.0')
   s.add_development_dependency('overcommit', '0.56.0')
   s.add_development_dependency('rake', '13.0.1')
