@@ -7,6 +7,7 @@
 ### Changes
 
 * Remove support of reading keys from `ENV`
+* Freeze dev dependencies version in `Gemfile.lock`
 
 ### Fixes
 
