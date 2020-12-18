@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe OnlyofficeS3Wrapper do
+RSpec.describe AmazonS3Wrapper, '#upload_file' do
   let(:file_name) { "#{SecureRandom.uuid}.ext" }
 
   before do

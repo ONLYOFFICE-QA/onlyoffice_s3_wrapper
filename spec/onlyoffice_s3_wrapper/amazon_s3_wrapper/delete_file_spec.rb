@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe OnlyofficeS3Wrapper do
+RSpec.describe AmazonS3Wrapper, '#delete_file' do
   file_name = nil
 
   before do

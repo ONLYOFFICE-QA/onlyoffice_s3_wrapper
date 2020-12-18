@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe OnlyofficeS3Wrapper do
+RSpec.describe AmazonS3Wrapper, '#make_public' do
   let(:make_public_result) do
     file_name = "#{SecureRandom.uuid}.ext"
     FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
