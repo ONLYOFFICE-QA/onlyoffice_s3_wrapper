@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe OnlyofficeS3Wrapper do
+RSpec.describe AmazonS3Wrapper, '#other_methods' do
   it 'has a version number' do
     expect(OnlyofficeS3Wrapper::VERSION).not_to be nil
   end

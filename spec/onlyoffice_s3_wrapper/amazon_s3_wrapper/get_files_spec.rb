@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe OnlyofficeS3Wrapper do
+RSpec.describe AmazonS3Wrapper, '#get_files' do
   it 'get_files_by_prefix' do
     files = s3.get_files_by_prefix('docx')
     expect(files).to include('docx/Book.docx')
