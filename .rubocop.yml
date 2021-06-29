@@ -8,3 +8,7 @@ inherit_from: .rubocop_todo.yml
 AllCops:
     NewCops: enable
     TargetRubyVersion: 2.5
+
+# This project contains link to README file on master branch
+Naming/InclusiveLanguage:
+  Enabled: false
