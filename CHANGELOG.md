@@ -7,6 +7,10 @@
 * Add `ruby-3.0` to CI
 * Check `simplecov` branch coverage in CI
 
+### Changes
+
+* Require `mfa` for releasing gem
+
 ## 0.4.0 (2020-11-28)
 
 ### Changes
