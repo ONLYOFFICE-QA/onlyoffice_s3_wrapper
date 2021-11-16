@@ -7,7 +7,7 @@
 * Add `ruby-3.0` to CI
 * Check `simplecov` branch coverage in CI
 
-### 0.4.0 (2020-11-28)
+## 0.4.0 (2020-11-28)
 
 ### Changes
 
