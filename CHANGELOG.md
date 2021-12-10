@@ -6,6 +6,7 @@
 
 * Add `ruby-3.0` to CI
 * Check `simplecov` branch coverage in CI
+* Add `content_type` param for uploading files
 
 ### Changes
 
