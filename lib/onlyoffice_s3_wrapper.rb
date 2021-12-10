@@ -127,7 +127,7 @@ module OnlyofficeS3Wrapper
     # @return [String] public url
     def upload_file_and_make_public(file_path,
                                     upload_folder = nil,
-                                    content_type = nil)
+                                    content_type = DEFAULT_CONTENT_TYPE)
       upload_file(file_path, upload_folder, content_type)
       make_public(bucket_file_path(File.basename(file_path), upload_folder))
       @bucket.object(bucket_file_path(File.basename(file_path),
