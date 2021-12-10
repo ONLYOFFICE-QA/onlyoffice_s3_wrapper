@@ -11,6 +11,9 @@ require 'onlyoffice_s3_wrapper/version'
 module OnlyofficeS3Wrapper
   # Class for working with amazon s3
   class AmazonS3Wrapper
+    # @return [String] default content type for uploaded files
+    DEFAULT_CONTENT_TYPE = 'binary/octet-stream'
+
     include PathHelper
     attr_accessor :s3, :bucket, :download_folder
     # [String] Amazon key
@@ -93,11 +96,12 @@ module OnlyofficeS3Wrapper
     # Upload file
     # @param file_path [String] file to upload
     # @param upload_folder [String] path to upload
+    # @param content_type [String] content type of file to upload
     # @return [nil]
-    def upload_file(file_path, upload_folder)
+    def upload_file(file_path, upload_folder, content_type = DEFAULT_CONTENT_TYPE)
       path = bucket_file_path(File.basename(file_path),
                               upload_folder)
-      @bucket.object(path).upload_file(file_path)
+      @bucket.object(path).upload_file(file_path, content_type: content_type)
     end
 
     # Make file public
@@ -119,9 +123,12 @@ module OnlyofficeS3Wrapper
     # Upload file/folder and make public
     # @param file_path [String] file to upload
     # @param upload_folder [True, False] is this a folder
+    # @param content_type [String] content type of file to upload
     # @return [String] public url
-    def upload_file_and_make_public(file_path, upload_folder = nil)
-      upload_file(file_path, upload_folder)
+    def upload_file_and_make_public(file_path,
+                                    upload_folder = nil,
+                                    content_type = DEFAULT_CONTENT_TYPE)
+      upload_file(file_path, upload_folder, content_type)
       make_public(bucket_file_path(File.basename(file_path), upload_folder))
       @bucket.object(bucket_file_path(File.basename(file_path),
                                       upload_folder)).public_url
