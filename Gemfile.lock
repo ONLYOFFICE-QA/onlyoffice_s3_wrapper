@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onlyoffice_s3_wrapper (0.4.0)
+    onlyoffice_s3_wrapper (0.5.0)
       aws-sdk-s3 (~> 1)
       onlyoffice_file_helper (~> 0)
 
@@ -105,4 +105,4 @@ DEPENDENCIES
   yard (~> 0, >= 0.9.20)
 
 BUNDLED WITH
-   2.2.25
+   2.2.33
