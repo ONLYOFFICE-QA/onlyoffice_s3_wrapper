@@ -20,4 +20,8 @@ RSpec.describe AmazonS3Wrapper, '#files_from_folder' do
     files = s3.files_from_folder('folder')
     expect(files.select { |file| file.start_with?('folder_with_suffix/') }).to be_empty
   end
+
+  it 'files_from_folder result with / and without is the same' do
+    expect(s3.files_from_folder('folder')).to eq(s3.files_from_folder('folder/'))
+  end
 end
