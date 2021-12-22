@@ -41,6 +41,16 @@ module OnlyofficeS3Wrapper
              .reject { |file| folder?(file) }
     end
 
+    # Get list of files from specific folder
+    # Will not use folder name as prefix, will always try to look at folder
+    # with exact specified name
+    # @param [String] folder to get files
+    # @return [Array<Object>] result set
+    def files_from_folder(folder = nil)
+      folder = "#{folder}/" unless folder.end_with?('/')
+      get_files_by_prefix(folder)
+    end
+
     # param [String] prefix
     # return [Array] of folder names with '/'
     # in end and filenames with fullpath (started ad prefix)

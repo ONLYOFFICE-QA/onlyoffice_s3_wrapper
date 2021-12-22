@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+### New Features
+
+* New method `AmazonS3Wrapper#files_from_folder`
+
 ## 0.5.0 (2021-12-10)
 
 ### New Features
