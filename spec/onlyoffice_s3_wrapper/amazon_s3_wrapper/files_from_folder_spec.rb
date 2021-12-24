@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe AmazonS3Wrapper, '#files_from_folder' do
   before do
-    file_name = "#{SecureRandom.uuid}.ext"
+    file_name = 'files_from_folder_spec.ext'
     FileHelper.create_file_with_content(file_path: "/tmp/#{file_name}",
                                         content: '')
     s3.upload_file("/tmp/#{file_name}", 'folder')
