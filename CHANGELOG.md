@@ -9,6 +9,7 @@
 ### Changes
 
 * Remove `ruby-2.5` from CI since it's EOLed
+* Actualize `nodejs` version in CI
 
 ## 0.6.0 (2021-12-22)
 
