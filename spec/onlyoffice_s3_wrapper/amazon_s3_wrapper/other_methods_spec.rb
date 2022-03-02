@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe AmazonS3Wrapper, '#other_methods' do
   it 'has a version number' do
-    expect(OnlyofficeS3Wrapper::VERSION).not_to be nil
+    expect(OnlyofficeS3Wrapper::VERSION).not_to be_nil
   end
 
   it 'get_object' do
