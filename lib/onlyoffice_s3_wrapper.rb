@@ -159,8 +159,8 @@ module OnlyofficeS3Wrapper
       @access_key_id = File.read("#{key_location}/key").strip
       @secret_access_key = File.read("#{key_location}/private_key").strip
     rescue Errno::ENOENT
-      raise Errno::ENOENT, "No key or private key found in #{key_location} "\
-                           "Please create files #{key_location}/key "\
+      raise Errno::ENOENT, "No key or private key found in #{key_location} " \
+                           "Please create files #{key_location}/key " \
                            "and #{key_location}/private_key"
     end
   end
