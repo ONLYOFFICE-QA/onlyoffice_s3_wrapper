@@ -15,7 +15,7 @@ module OnlyofficeS3Wrapper
     DEFAULT_CONTENT_TYPE = 'binary/octet-stream'
 
     include PathHelper
-    attr_accessor :s3, :bucket, :download_folder
+    attr_accessor :bucket, :download_folder
     # [String] Amazon key
     attr_writer :access_key_id
     # [String] Amazon secret key
@@ -26,8 +26,7 @@ module OnlyofficeS3Wrapper
       Aws.config = { access_key_id: @access_key_id,
                      secret_access_key: @secret_access_key,
                      region: region }
-      @s3 = Aws::S3::Resource.new
-      @bucket = @s3.bucket(bucket_name)
+      @bucket = Aws::S3::Resource.new.bucket(bucket_name)
       @download_folder = Dir.mktmpdir('amazon-s3-downloads')
     end
 

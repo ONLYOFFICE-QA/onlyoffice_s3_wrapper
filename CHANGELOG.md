@@ -6,6 +6,10 @@
 
 * Add `ruby-3.2` in CI
 
+### Changes
+
+* Remove `@s3` instance variable
+
 ## 1.0.0 (2022-08-06)
 
 ### New Features
