@@ -9,6 +9,7 @@
 ### Changes
 
 * Remove `@s3` instance variable
+* Drop support of `ruby-2.7` since it's EOLed
 
 ## 1.0.0 (2022-08-06)
 

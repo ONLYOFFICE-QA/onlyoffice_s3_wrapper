@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name = OnlyofficeS3Wrapper::NAME
   s.version = OnlyofficeS3Wrapper::VERSION
   s.platform = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.0'
   s.authors = ['ONLYOFFICE', 'Pavel Lobashov', 'Dmitry Rotaty']
   s.summary = 'ONLYOFFICE Helper Gem for S3'
   s.description = 'ONLYOFFICE Helper Gem for S3. Used in QA'
