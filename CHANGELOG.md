@@ -6,6 +6,7 @@
 
 * Add `ruby-3.2` in CI
 * Add `ruby-3.3` in CI
+* Add `dependabot` check for `GitHub Actions`
 
 ### Changes
 
