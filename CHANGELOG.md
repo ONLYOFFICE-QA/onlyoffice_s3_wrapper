@@ -16,6 +16,7 @@
 ### Fixes
 
 * Fix `gem` warning about license name
+* Fix `gem` warning about `metadata` field
 
 ## 1.0.0 (2022-08-06)
 
