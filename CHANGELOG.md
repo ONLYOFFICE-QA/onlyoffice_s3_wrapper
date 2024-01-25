@@ -13,6 +13,10 @@
 * Remove `@s3` instance variable
 * Drop support of `ruby-2.7` since it's EOLed
 
+### Fixes
+
+* Fix `gem` warning about license name
+
 ## 1.0.0 (2022-08-06)
 
 ### New Features

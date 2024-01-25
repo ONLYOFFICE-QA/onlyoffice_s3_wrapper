@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*']
   s.add_runtime_dependency('aws-sdk-s3', '~> 1')
   s.add_runtime_dependency('onlyoffice_file_helper', '< 3')
-  s.license = 'AGPL-3.0'
+  s.license = 'AGPL-3.0-or-later'
 end
