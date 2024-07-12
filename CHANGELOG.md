@@ -5,6 +5,7 @@
 ### Changes
 
 * Fix `rubocop-rspec-2.27.0` cop `RSpec/DescribedClass` warnings.
+* Fix `rubocop-1.65.0` cop `Gemspec/AddRuntimeDependency`
 
 ## 2.0.0 (2024-01-26)
 
