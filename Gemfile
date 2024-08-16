@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'base64'
+
 group :test do
   gem 'rspec', '~> 3'
   gem 'simplecov', '~> 0', require: false
