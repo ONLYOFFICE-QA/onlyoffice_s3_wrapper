@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 2.1.0 (2024-12-20)
+
 ### Changes
 
 * Fix `rubocop-rspec-2.27.0` cop `RSpec/DescribedClass` warnings.

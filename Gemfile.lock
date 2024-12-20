@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onlyoffice_s3_wrapper (2.0.0)
+    onlyoffice_s3_wrapper (2.1.0)
       aws-sdk-s3 (~> 1)
       base64 (~> 0)
       onlyoffice_file_helper (< 3)
