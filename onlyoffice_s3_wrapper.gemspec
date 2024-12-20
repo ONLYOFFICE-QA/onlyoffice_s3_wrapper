@@ -22,6 +22,8 @@ Gem::Specification.new do |s|
   s.email = ['shockwavenn@gmail.com', 'flamine@gmail.com']
   s.files = Dir['lib/**/*']
   s.add_dependency('aws-sdk-s3', '~> 1')
+  # Until https://github.com/aws/aws-sdk-ruby/issues/2984 is resolved
+  s.add_dependency('base64', '~> 0')
   s.add_dependency('onlyoffice_file_helper', '< 3')
   s.license = 'AGPL-3.0-or-later'
 end
