@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'aws-sdk-s3'
+require 'base64'
 require 'open-uri'
 require 'securerandom'
 require 'onlyoffice_file_helper'
