@@ -10,6 +10,10 @@
 
 * Remove `ruby-3.0` from CI, since it's EOLed
 
+### Fixes
+
+* Run `rubocop` in CI through `bundle exec`
+
 ## 2.1.0 (2024-12-20)
 
 ### Changes
